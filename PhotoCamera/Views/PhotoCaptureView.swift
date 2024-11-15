@@ -38,10 +38,14 @@ struct PhotoCaptureView: View {
             }
         }
         .fullScreenCover(isPresented: $viewModel.isCameraActive, content: {
-            ImagePickerView(sourceType: .camera, viewModel: viewModel)
+            ImagePickerView(sourceType: .camera) { image in
+                viewModel.processPickedImage(image)
+            }
         })
         .sheet(isPresented: $viewModel.isPhotoPickerActive, content: {
-            ImagePickerView(sourceType: .photoLibrary, viewModel: viewModel)
+            ImagePickerView(sourceType: .photoLibrary) { image in
+                viewModel.processPickedImage(image)
+            }
         })
         .alert(isPresented: $viewModel.showErrorAlert) {
             Alert(title: Text("Error"), message: Text(viewModel.errorMessage), dismissButton: .default(Text("OK")))

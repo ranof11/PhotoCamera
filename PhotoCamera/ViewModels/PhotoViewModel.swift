@@ -14,7 +14,7 @@ class PhotoViewModel: ObservableObject {
     @Published var isPhotoPickerActive = false
     @Published var showErrorAlert = false
     @Published var errorMessage = ""
-    
+
     func takePhoto() {
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
             errorMessage = "Camera not available"

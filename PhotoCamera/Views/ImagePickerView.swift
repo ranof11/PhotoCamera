@@ -15,7 +15,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
     }
     
     let sourceType: SourceType
-    @ObservedObject var viewModel: PhotoViewModel
+    let imagePicked: (UIImage) -> Void
     
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         let parent: ImagePickerView
@@ -26,7 +26,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
-                parent.viewModel.processPickedImage(image)
+                parent.imagePicked(image)
             }
             picker.dismiss(animated: true)
         }
